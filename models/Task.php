@@ -3,6 +3,7 @@
 namespace app\models;
 
 use yii\base\Model;
+use app\validators\ParticipantsValidator;
 
 class Task extends Model
 {
@@ -40,13 +41,20 @@ class Task extends Model
   public function rules()
   {
     return [
-      [['columnName', 'title', 'creationDate'], 'required'],
-      [['columnName', 'title'], 'string'],
+      [['columnName', 'title'], 'required'],
+      [['columnName', 'title', 'description', 'comments', 'actions'], 'string'],
       [['deadline', 'creationDate'], 'date'],
       ['creationDate', 'date', 'timestampAttribute' => 'creationDate'],
       ['deadline', 'date', 'timestampAttribute' => 'deadline'],
+      ['creationDate', 'default', 'value' => time()],
+      ['attachments', 'file', 'extensions' => ['png', 'jpg', 'gif', 'doc', 'pdf']],
+      ['participants', ParticipantsValidator::class],
+      ['tags', 'integer']
+
     ];
   }
+
+
 
 
 }

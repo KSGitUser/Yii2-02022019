@@ -25,6 +25,7 @@ class TaskController extends Controller
       'title' => $this->model->columnName,
       'content' => $this->model->title,
       'creationDate' => date('Y-m-d', $this->model->creationDate),
+      'participants' => $this->model->participants,
     ]);
   }
 
@@ -33,7 +34,11 @@ class TaskController extends Controller
     $this->model = new Task();
     $this->model->columnName = 'Основные задачи';
     $this->model->title = 'Задача №1';
-    $this->model->creationDate = time();  
+    $this->model->participants = [['name'=> 'Семен', 'email'=>'semen@mail.ru'], ['name'=> 'Петр', 'email'=>'petr@mail.ru']];
+    if (!$this->model->validate()) {
+      var_dump($this->model->getErrors());
+      exit;
+    }
 
   }
 
