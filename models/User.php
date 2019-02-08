@@ -47,9 +47,11 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
 
     public static function setUser($propertyName = null, $propertyValue =  null)
     {
-        if (!isset(self::$user)) {
+        if (!isset(self::$user) && $propertyName != null && $propertyValue != null) {
             self::$user = Users::findOne([$propertyName=>$propertyValue]);
+            return;
         }
+
     }
 
 
