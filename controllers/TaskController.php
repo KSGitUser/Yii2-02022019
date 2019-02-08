@@ -2,45 +2,126 @@
 
 namespace app\controllers;
 
+use Yii;
+use app\models\tables\Tasks;
+use app\models\TasksSearch;
 use yii\web\Controller;
-use app\models\Task;
-use Faker\Provider\zh_TW\DateTime;
+use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
 
-
-class TaskController extends Controller 
-
+/**
+ * TaskController implements the CRUD actions for Tasks model.
+ */
+class TaskController extends Controller
 {
-  public $model;
-
-
-  public function actionIndex()
-  {
-    echo "index"; exit;
-  }
-
-  public function actionTest()
-  {
-    $this->actionTask();
-    return $this->render('test', [
-      'title' => $this->model->columnName,
-      'content' => $this->model->title,
-      'creationDate' => date('Y-m-d', $this->model->creationDate),
-      'participants' => $this->model->participants,
-    ]);
-  }
-
-  public function actionTask()
-  {
-    $this->model = new Task();
-    $this->model->columnName = 'Основные задачи';
-    $this->model->title = 'Задача №1';
-    $this->model->participants = [['name'=> 'Семен', 'email'=>'semen@mail.ru'], ['name'=> 'Петр', 'email'=>'petr@mail.ru']];
-    if (!$this->model->validate()) {
-      var_dump($this->model->getErrors());
-      exit;
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
     }
 
-  }
+    /**
+     * Lists all Tasks models.
+     * @return mixed
+     */
+    public function actionIndex()
+    {
+        $searchModel = new TasksSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
+    /**
+     * Displays a single Tasks model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * Creates a new Tasks model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $model = new Tasks();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Updates an existing Tasks model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Deletes an existing Tasks model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Finds the Tasks model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Tasks the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = Tasks::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
 }
