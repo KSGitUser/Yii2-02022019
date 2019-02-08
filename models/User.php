@@ -14,36 +14,6 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
     public $email;
     public static $user;
 
-/*     private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ]; */
-
-   /*  public static $users; */
-
-
-
-
-/*     public function setUsers() {
-          self::$users = Users::find()->all();
-        
-    }
-
-    public function getUsers() {           
-          return self::$users;          
-    } */
 
     public static function setUser($propertyName = null, $propertyValue =  null)
     {
@@ -86,8 +56,7 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
     public static function findByUsername($username)
     {
    
-             /* $user = Users::findOne(['username'=>$username]);   */ 
-            static::setUser('username', $username);   
+             static::setUser('username', $username);   
             if (strcasecmp(static::$user['username'], $username) === 0) {
                 return new static(static::$user);
             }
