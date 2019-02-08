@@ -31,3 +31,8 @@ tests/_support/_generated
 
 #vagrant folder
 /.vagrant
+
+
+#my files
+migrations/Data.sql
+
