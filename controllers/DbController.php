@@ -57,8 +57,7 @@ public function actionAr()
 $query = new Query();
 $query = $query->select(['name', 'description']);
 $model = Tasks::find()->select(['name', 'description'])->all();
-var_dump($model);
-exit;
+
 
 
 

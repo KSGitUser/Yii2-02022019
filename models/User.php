@@ -12,17 +12,9 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
     public $authKey;
     public $accessToken;
     public $email;
-    public static $user;
 
 
-    public static function setUser($propertyName = null, $propertyValue =  null)
-    {
-        if (!isset(self::$user) && $propertyName != null && $propertyValue != null) {
-            self::$user = Users::findOne([$propertyName=>$propertyValue]);
-            return;
-        }
-
-    }
+   
 
 
     /**
@@ -30,8 +22,8 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      */
     public static function findIdentity($id)
     {
-        static::setUser('id', $id);
-        return isset(static::$user) ? new static(static::$user) : null;
+        $user =  Users::findOne(['id'=>$id]);
+        return isset($user) ? new static($user) : null;
     }
 
     /**
@@ -39,9 +31,9 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-            static::setUser('accessToken', $token); 
-            if (static::$user['accessToken'] === $token) {
-                return new static(static::$user);
+             $user =  Users::findOne(['accessToken'=>$token]); 
+            if ($user['accessToken'] === $token) {
+                return new static($user);
             }
 
         return null;
@@ -56,9 +48,9 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
     public static function findByUsername($username)
     {
    
-             static::setUser('username', $username);   
-            if (strcasecmp(static::$user['username'], $username) === 0) {
-                return new static(static::$user);
+        $user =  Users::findOne(['username'=>$username]);
+            if (strcasecmp($user['username'], $username) === 0) {
+                return new static($user);
             }
         return null;
     }

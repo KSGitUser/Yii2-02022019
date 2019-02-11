@@ -22,7 +22,7 @@ class m190208_111839_create_tasks_table extends Migration
         ]);
 
        /*  $this->createIndex("ix_tasks_responsible", "tasks", "responsible_id"); */
-        $this->addForeignKey("idx_orders_foreign", "tasks", "responsible_id", "users", "id" );
+        $this->addForeignKey("fk_users_foreign", "tasks", "responsible_id", "users", "id" );
     }
 
     /**
