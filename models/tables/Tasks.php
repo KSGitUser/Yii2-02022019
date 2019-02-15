@@ -5,8 +5,7 @@ namespace app\models\tables;
 use Yii;
 
 use yii\db\ActiveRecord;
-
-
+use yii\behaviors\TimestampBehavior;
 
 
 /**
@@ -23,10 +22,8 @@ use yii\db\ActiveRecord;
  */
 class Tasks extends \yii\db\ActiveRecord
 {
-    const EVENT_RUN_START = 'run_start';
-    const EVENT_RUN_PROCESS = 'run_process';
-    const EVENT_RUN_FINISH = 'run_finish';
-
+     
+    
     /**
      * {@inheritdoc}
      */
@@ -65,6 +62,16 @@ class Tasks extends \yii\db\ActiveRecord
         ];
     }
 
+    public function behaviors()
+     {
+         return [
+             [
+                 'class' => TimestampBehavior::className(),
+                 'value' => time(),
+             ],
+        ];
+     }
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -73,12 +80,4 @@ class Tasks extends \yii\db\ActiveRecord
         return $this->hasOne(Users::className(), ['id' => 'responsible_id']);
     }
 
-    public function run()
-    {
-        $this->trigger(static::EVENT_RUN_START);
-        echo "Метод run запущен<br>";
-        echo "Метод run выполняется<br>";
-        echo "Метод run завершен<br>";
-      
-    }
 }

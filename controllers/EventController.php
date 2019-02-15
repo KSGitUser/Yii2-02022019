@@ -9,8 +9,9 @@ use yii\db\ActiveRecord;
 use app\models\SendEmail;
 use yii\helpers\Html;
 use yii\base\ModelEvent;
+use yii\base\Exception;
 
-class EventController extends ModelEvent
+class EventController extends ActiveRecord
 {
   public function init()
   {
@@ -24,7 +25,9 @@ class EventController extends ModelEvent
             'subject' => 'Created new task',
         ]);
         $sendEmail->body = 'Создана новая задача ' . Html::a($model->name, ['tasks/view', 'id' => $model->id]);
-        $sendEmail->contact($user->email);
+        if (!$sendEmail->contact($user->email)) {
+          throw new Exception('Ошибка при отправке письма');
+        };
     });
   }
 }

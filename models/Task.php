@@ -18,7 +18,8 @@ class Task extends Model
   public $deadline;
   public $attachments;
   public $actions;
-  public $creationDate;
+  public $created_at;
+  public $updated_at;
 
   public function attributeLabels() 
   {
@@ -33,7 +34,7 @@ class Task extends Model
       'deadline' => 'Срок',
       'attachments' => 'Вложения',
       'actions' => 'Действия',
-      'creationDate' => 'Дата создания',
+      'created_at' => 'Дата создания',
 
     ];
   }

@@ -3,6 +3,7 @@
 namespace app\models\tables;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "users".
@@ -50,6 +51,16 @@ class Users extends \yii\db\ActiveRecord
             'accessToken' => 'Access Token',
             'password' => 'Password',
         ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'value' => time(),
+            ],
+       ];
     }
 
     /**

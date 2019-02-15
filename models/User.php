@@ -4,6 +4,7 @@ namespace app\models;
 
 use app\models\tables\Users;
 
+
 class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
 {
     public $id;
@@ -12,9 +13,11 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
     public $authKey;
     public $accessToken;
     public $email;
+    public $created_at;
+    public $updated_at;
 
 
-   
+    
 
 
     /**
