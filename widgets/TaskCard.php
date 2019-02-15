@@ -13,7 +13,7 @@ class TaskCard extends Widget
   public function run() {
 
    $form = ActiveForm::begin(['action' => '\index.php?r=tasks/card-update&id=' . $this->model->id ]);
-   echo $form->field($this->model, 'name')->textInput();
+   echo $form->field($this->model, 'name')->textInput(); 
    echo Html::submitButton('Подробнее',[]); 
    ActiveForm::end();
 

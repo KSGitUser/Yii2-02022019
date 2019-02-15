@@ -4,6 +4,11 @@ namespace app\models\tables;
 
 use Yii;
 
+use yii\db\ActiveRecord;
+
+
+
+
 /**
  * This is the model class for table "tasks".
  *
@@ -18,6 +23,10 @@ use Yii;
  */
 class Tasks extends \yii\db\ActiveRecord
 {
+    const EVENT_RUN_START = 'run_start';
+    const EVENT_RUN_PROCESS = 'run_process';
+    const EVENT_RUN_FINISH = 'run_finish';
+
     /**
      * {@inheritdoc}
      */
@@ -62,5 +71,14 @@ class Tasks extends \yii\db\ActiveRecord
     public function getResponsible()
     {
         return $this->hasOne(Users::className(), ['id' => 'responsible_id']);
+    }
+
+    public function run()
+    {
+        $this->trigger(static::EVENT_RUN_START);
+        echo "Метод run запущен<br>";
+        echo "Метод run выполняется<br>";
+        echo "Метод run завершен<br>";
+      
     }
 }
