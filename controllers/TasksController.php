@@ -14,6 +14,8 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use app\models\TasksSearch;
+
 
 
 
@@ -53,11 +55,10 @@ class TasksController extends Controller
         'dataProvider' => $dataProvider,
         'users' => $users,
         ]); */
-        $dataProvider = new ActiveDataProvider([
-            'query' => Tasks::find(),
-        ]);
+        $searchModel = new TasksSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', ['dataProvider' => $dataProvider]);
+        return $this->render('index', ['dataProvider' => $dataProvider, 'searchModel' => $searchModel,]);
     }
 
     public function actionOne($id)
