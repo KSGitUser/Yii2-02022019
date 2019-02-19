@@ -1,6 +1,5 @@
 <?php
 
-/* var_dump($_GET); exit; */
 
 echo $this->render('_search', ['model' => $searchModel]); 
 

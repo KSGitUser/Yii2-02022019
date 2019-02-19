@@ -55,10 +55,10 @@ class Tasks extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'description' => 'Description',
-            'responsible_id' => 'Responsible ID',
-            'date' => 'Date',
+            'name' => 'Name of task',
+            'description' => 'Task description',
+            'responsible_id' => 'Responsible',
+            'date' => 'Deadline',
             'status_id' => 'Status ID',
         ];
     }

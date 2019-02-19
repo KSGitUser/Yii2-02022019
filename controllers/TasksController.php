@@ -45,17 +45,8 @@ class TasksController extends Controller
      */
     public function actionIndex()
     {
-        /* $searchModel = new TasksSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        $users = Users::find()->select(['id','username'])->all();
-
-        return $this->render('index', [
-        'searchModel' => $searchModel,
-        'dataProvider' => $dataProvider,
-        'users' => $users,
-        ]); */
         $searchModel = new TasksSearch();
+      
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', ['dataProvider' => $dataProvider, 'searchModel' => $searchModel,]);
@@ -63,7 +54,7 @@ class TasksController extends Controller
 
     public function actionOne($id)
     {
-        var_dump($id);exit;
+       return $this->actionUpdate($id);
     }
 
     /**

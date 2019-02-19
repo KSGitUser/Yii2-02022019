@@ -20,7 +20,12 @@ $config = [
             'cookieValidationKey' => 'nwCNzQ6jUs0B5DdijQWbq0iS7lZyeCzH',
         ],
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' => 'yii\redis\Cache',
+            'redis' => [
+                'hostname' => 'yii2.php',
+                'port' => 6379,
+                'database' => 0,
+            ],
         ],
         'user' => [
             'identityClass' => 'app\models\User',

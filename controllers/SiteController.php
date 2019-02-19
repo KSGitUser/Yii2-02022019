@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use yii\redis\Cache;
 
 class SiteController extends Controller
 {
@@ -35,6 +36,11 @@ class SiteController extends Controller
                     'logout' => ['post'],
                 ],
             ],
+            'pageCache' => [
+                'class' => 'yii\filters\PageCache',
+                'only' => ['contact'],
+                'duration' => 60,                
+            ], 
         ];
     }
 
