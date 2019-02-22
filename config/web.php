@@ -4,12 +4,22 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
+    'language' = 'ru',
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
+   /*  'i18n' => [
+        'translations' => [
+            'app' => [
+                'class' => 'yii\i18n\PhpMessageSource:class',
+                'basePath' => '@app\messages',
+            ]
+        ]
+    ], */
     'bootstrap' => ['log', 'eventController'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
+        '@img' => '@app/web/img',
     ],
     'components' => [
         'eventController' => [

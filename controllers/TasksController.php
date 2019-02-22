@@ -15,6 +15,9 @@ use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use app\models\TasksSearch;
+use app\controllers\UploadController;
+use app\models\Upload;
+use yii\web\UploadedFile;
 
 
 
@@ -89,6 +92,8 @@ class TasksController extends Controller
             return $this->redirect(['view', 'id' => $model->id, 'user' => $user]);
         }
 
+     
+
         return $this->render('create', [
             'model' => $model, 'array' => $newArray,
         ]);
@@ -104,17 +109,31 @@ class TasksController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $imageModel = new Upload();
+    
 
         $array = Users::find()->select(['id', 'username'])->all();
         $newArray = ArrayHelper::map($array, 'id', 'username');
+/* 
+        var_dump($model->load(Yii::$app->request->post())); exit; */
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $user = Users::find()->select(['username'])->where(['id' => $model->responsible_id])->one()->username;
             return $this->redirect(['view', 'id' => $model->id, 'user' => $user]);
         }
 
+        if (Yii::$app->request->isPost) {
+            $imageModel->file = UploadedFile::getInstance($imageModel, 'file');
+            $imageModel->run();
+      
+          }
+
+      
+
+   
         return $this->render('update', [
-            'model' => $model, 'array' => $newArray,
+            'model' => $model, 'array' => $newArray, 'imageModel'=>$imageModel
         ]);
     }
 

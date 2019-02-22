@@ -9,13 +9,15 @@ $this->title = 'Task update: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
+
 ?>
 <div class="tasks-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
-        'model' => $model, 'array' => $array
+        'model' => $model, 'array' => $array, 'imageModel' => $imageModel
     ]) ?>
+   
 
 </div>

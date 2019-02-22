@@ -17,15 +17,15 @@ use app\models\tables\Users;
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-
     <?= $form->field($model, 'responsible_id')->dropDownList($array, ['prompt'=>'Select username',]); ?>
 
 
     <?= $form->field($model, 'date')->widget(\yii\widgets\MaskedInput::className(), [ 'mask' => '9999/99/99',]); ?>
 
     <?= $form->field($model, 'status_id')->textInput() ?>
+    <?= $this->render('@app/views/upload/index.php', ['model' => $imageModel, 'form' => $form]) ?>
 
-    <div class="form-group">
+     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 
