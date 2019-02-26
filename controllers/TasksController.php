@@ -124,9 +124,13 @@ class TasksController extends Controller
             return $this->redirect(['view', 'id' => $model->id, 'user' => $user]);
         }
 
+    
         if (Yii::$app->request->isPost) {
-            $imageModel->file = UploadedFile::getInstance($imageModel, 'file');
-            $imageModel->run();
+            if ($imageModel->file = UploadedFile::getInstance($imageModel, 'file')) {
+                $imageModel->run();
+                \Yii::$app->session->setFlash('success', "Файл добавлен");
+            }
+          
       
           }
       
@@ -141,6 +145,7 @@ class TasksController extends Controller
 
     public function actionAddComment() 
     {
+     
         $model = new Comments();
         if($model->load(\Yii::$app->request->post()) && $model->save()) {
             \Yii::$app->session->setFlash('success', "Комментарий добавлен");

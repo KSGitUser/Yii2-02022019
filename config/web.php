@@ -72,15 +72,16 @@ $config = [
                 ],
             ],
         ],
-        'db' => $db,
-        /*
+        'db' => $db,        
         'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
+            'enablePrettyUrl' => true, 
+            'showScriptName' => false, 
             'rules' => [
+                'tasks' => 'tasks/index',
+                'tasks/<id>' => 'tasks/one',
+                'tasks/addcomment' => 'tasks/add-comment',
             ],
-        ],
-        */
+        ],       
     ],
     'params' => $params,
 ];
