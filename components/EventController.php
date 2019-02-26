@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\components;
 
 use yii\web\Controller;
 use app\models\tables\Tasks;
@@ -30,4 +30,6 @@ class EventController extends ActiveRecord
         };
     });
   }
+
+
 }

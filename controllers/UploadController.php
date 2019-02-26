@@ -29,6 +29,14 @@ class UploadController extends Controller
  
   }
 
+  public function actionLang()
+  {
+    \Yii::$app->language = 'en';
+    echo \Yii::t("app", "error", ['number' => 404]);
+  
+    exit;
+  }
+
 
 
 

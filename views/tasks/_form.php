@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\models\tables\Users;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\tables\Tasks */
@@ -30,5 +31,25 @@ use app\models\tables\Users;
     </div>
 
     <?php ActiveForm::end(); ?>
+
+</div>
+
+<div class="form_comments">
+    <h3>Комментарии</h3>
+    <?php $formComments = ActiveForm::begin(['action' => Url::to(['tasks/add-comment'])]);?>
+    <?= $formComments->field($taskCommentForm, 'user_id')->hiddenInput(['value' => $userId])->label(false);?>
+    <?= $formComments->field($taskCommentForm, 'task_id')->hiddenInput(['value' => $model->id])->label(false); ?>
+    <?= $formComments->field($taskCommentForm, 'comment')->textInput(); ?>
+    <?= Html::submitButton("Add", ['class' => 'btn btn-default']); ?>
+    <?ActiveForm::end() ?>
+    <hr>
+    <div class="comment-history">
+        <?foreach ($model->comments as $comment): ?>
+            <p><strong><?= $comment->user->username?></strong>: <?= $comment->comment ?> </p>
+        <?php endforeach;?>
+    </div>  
+</div>
+
+
 
 </div>

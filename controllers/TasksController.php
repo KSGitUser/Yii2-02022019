@@ -18,6 +18,7 @@ use app\models\TasksSearch;
 use app\controllers\UploadController;
 use app\models\Upload;
 use yii\web\UploadedFile;
+use app\models\tables\Comments;
 
 
 
@@ -128,13 +129,25 @@ class TasksController extends Controller
             $imageModel->run();
       
           }
-
       
-
-   
         return $this->render('update', [
-            'model' => $model, 'array' => $newArray, 'imageModel'=>$imageModel
+            'model' => $model, 
+            'array' => $newArray, 
+            'imageModel'=>$imageModel, 
+            'taskCommentForm' => new Comments,
+            'userId' => \Yii::$app->user->id,
         ]);
+    }
+
+    public function actionAddComment() 
+    {
+        $model = new Comments();
+        if($model->load(\Yii::$app->request->post()) && $model->save()) {
+            \Yii::$app->session->setFlash('success', "Комментарий добавлен");
+        } else {
+            \Yii::$app->session->setFlash('error', "Не удалось добавить комментарий");
+        }
+        $this->redirect(\Yii::$app->request->referrer);
     }
 
     public function actionCardUpdate($id)
