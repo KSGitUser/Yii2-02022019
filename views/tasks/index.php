@@ -1,5 +1,8 @@
 <?php
 
+use app\assets\TaskAsset;
+
+TaskAsset::register($this);
 
 echo $this->render('_search', ['model' => $searchModel]); 
 
